@@ -1,0 +1,13 @@
+from apiclient import discovery
+from apiclient import model
+import json
+
+DEVELOPER_KEY = 'YOUR-KEY-GOES-HERE'
+
+model.JsonModel.alt_param = ""
+freebase = discovery.build('freebase', 'v1', developerKey=DEVELOPER_KEY)
+query = [{'id': None, 'name': None, 'type': '/astronomy/planet'}]
+
+response = json.loads(freebase.mqlread(query=json.dumps(query)).execute())
+for planet in response['result']:
+	print planet['name']
